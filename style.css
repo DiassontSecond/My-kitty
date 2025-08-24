@@ -284,11 +284,14 @@
             transform: translateY(-1px);
             box-shadow: 0 12px 34px rgba(244, 114, 182, .18);
         }
-        footer {
+        p {
             text-align: center;
-            padding: 8px 0 18px;
             color: var(--muted);
-            font-size: 13px;
+            position: relative;
+            backdrop-filter: blur(10px);
+            z-index: 10; /* вище ніж у blur */
+            font-size: 20px;
+            text-align: center;
         }
         /* Адаптив для дуже вузьких екранів */
         @media (max-width: 500px) {
