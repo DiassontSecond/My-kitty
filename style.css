@@ -10,6 +10,20 @@
         * {
             box-sizing: border-box;
         }
+
+        .blur-window {
+            position: relative;
+            z-index: 1; /* або 0 */
+            backdrop-filter: blur(10px);
+        }
+
+        .love-text {
+            position: relative; /* або absolute/fixed, якщо треба */
+            z-index: 10; /* вище ніж у blur */
+            color: white;
+            font-size: 20px;
+            text-align: center;
+        }
         html, body {
             height: 100%;
         }
