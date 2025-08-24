@@ -1,0 +1,367 @@
+:root {
+            --bg: #0f1020;
+            --card: #14162b;
+            --text: #f5f7ff;
+            --muted: #b8c0ff;
+            --accent: #a78bfa;
+            --accent-2: #f472b6;
+            --glow: 0 0 20px rgba(167, 139, 250, .6), 0 0 40px rgba(244, 114, 182, .25);
+        }
+        * {
+            box-sizing: border-box;
+        }
+        html, body {
+            height: 100%;
+        }
+        /* Розмитий фон з градієнтами для всього сайту */
+        body {
+            margin: 0;
+            font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, Arial, sans-serif;
+            background: radial-gradient(1200px 800px at 80% -10%, rgba(167, 139, 250, .12), transparent 60%), radial-gradient(900px 700px at 0% 100%, rgba(244, 114, 182, .12), transparent 60%), var(--bg);
+            color: var(--text);
+            display: grid;
+            grid-template-rows: auto 1fr auto;
+            align-items: start;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+        /* Додатковий розмитий шар з градієнтами */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(circle at 10% 20%, rgba(244, 114, 182, 0.12) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(167, 139, 250, 0.12) 0%, transparent 40%);
+            backdrop-filter: blur(10px);
+            z-index: -1;
+            pointer-events: none;
+        }
+        /* Сердечка, які мігають */
+        .floating-heart {
+            position: fixed;
+            color: rgba(244, 114, 182, 0.7);
+            font-size: clamp(16px, 3vw, 24px);
+            animation: float 8s infinite ease-in-out;
+            opacity: 0;
+            pointer-events: none;
+            z-index: -1;
+        }
+        /* Анімація для сердечок */
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            20% {
+                opacity: 0.8;
+            }
+            80% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-20px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        header {
+            text-align: center;
+            padding: 18px 16px 0;
+        }
+        h1 {
+            margin: 0 0 6px;
+            font-size: clamp(28px, 3.2vw, 44px);
+            letter-spacing: 0.5px;
+            text-shadow: var(--glow);
+        }
+        .subtitle {
+            opacity: .9;
+            font-size: clamp(14px, 1.6vw, 18px);
+            color: var(--muted);
+        }
+        /* ТАЙМЕР */
+        .timer-wrap {
+            width: min(1100px, 92vw);
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 12px;
+        }
+        .counter-card {
+            background: linear-gradient(180deg, rgba(255, 255, 255, .04), rgba(255, 255, 255, .02));
+            border: 1px solid rgba(255, 255, 255, .08);
+            border-radius: 20px;
+            padding: 14px 16px;
+            text-align: center;
+            backdrop-filter: blur(6px);
+            box-shadow: 0 8px 28px rgba(0, 0, 0, .35);
+        }
+        .counter-value {
+            font-size: clamp(28px, 4vw, 42px);
+            font-weight: 800;
+            line-height: 1;
+            text-shadow: var(--glow);
+        }
+        .counter-label {
+            font-size: 14px;
+            letter-spacing: .3px;
+            color: var(--muted);
+        }
+        /* СЦЕНА ДЕРЕВА */
+        .tree-stage {
+            width: min(1100px, 92vw);
+            aspect-ratio: 16/10;
+            margin: 8px auto 18px;
+            position: relative;
+            background: linear-gradient(180deg, rgba(255, 255, 255, .02), rgba(255, 255, 255, .01));
+            border: 1px solid rgba(255, 255, 255, .08);
+            border-radius: 24px;
+            overflow: hidden;
+            backdrop-filter: blur(4px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, .35);
+        }
+        .tree-stage::before {
+            content: "";
+            position: absolute;
+            inset: -2px;
+            background: radial-gradient(600px 200px at 30% 40%, rgba(167, 139, 250, .12), transparent 60%), radial-gradient(600px 220px at 80% 60%, rgba(244, 114, 182, .12), transparent 60%);
+            pointer-events: none;
+        }
+        svg {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+        /* КЛІК-ЗОНИ ГІЛОК */
+        .branch-hotspot {
+            fill: transparent;
+            cursor: pointer;
+            stroke-width: 24;
+            stroke: transparent;
+        }
+        .branch {
+            stroke: #a78bfa;
+            stroke-width: 6;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            filter: drop-shadow(0 0 10px rgba(167, 139, 250, .35));
+        }
+        /* КВІТИ */
+        .flower {
+            transform-origin: center;
+            opacity: 0;
+            transform: scale(.2);
+            transition: transform .6s cubic-bezier(.2, .7, .2, 1.1), opacity .6s ease;
+        }
+        .flower.bloom {
+            opacity: 1;
+            transform: scale(1);
+        }
+        /* ПАНЕЛЬ СПОГАДІВ */
+        .overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(10, 12, 24, .45);
+            backdrop-filter: blur(2px);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity .25s ease;
+            z-index: 100;
+        }
+        .overlay.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .memory-panel {
+            position: fixed;
+            top: 0;
+            right: 0;
+            height: 100%;
+            width: min(480px, 96%);
+            background: var(--card);
+            border-left: 1px solid rgba(255, 255, 255, .08);
+            transform: translateX(100%);
+            transition: transform .25s ease;
+            display: grid;
+            grid-template-rows: auto 1fr auto;
+            gap: 10px;
+            color: var(--text);
+            z-index: 101;
+        }
+        .overlay.show .memory-panel {
+            transform: translateX(0);
+        }
+        .mem-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, .08);
+        }
+        .mem-title {
+            font-weight: 800;
+            letter-spacing: .3px;
+        }
+        .close {
+            background: transparent;
+            border: none;
+            color: var(--text);
+            font-size: 20px;
+            cursor: pointer;
+            opacity: .8;
+            padding: 4px;
+        }
+        .close:hover {
+            opacity: 1;
+        }
+        .mem-body {
+            padding: 0 14px 14px;
+            overflow: auto;
+        }
+        .photo {
+            width: 100%;
+            max-height: 70vh; /* щоб фото не вилізло за екран */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #111; /* фон під фото */
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .photo img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain; /* показує все фото повністю */
+            border-radius: 16px;
+        }
+        .mem-text {
+            margin-top: 12px;
+            color: var(--muted);
+            line-height: 1.55;
+        }
+        .mem-foot {
+            padding: 12px 16px;
+            border-top: 1px solid rgba(255, 255, 255, .06);
+            display: flex;
+            gap: 10px;
+        }
+        .mem-foot .btn {
+            cursor: pointer;
+            user-select: none;
+            background: linear-gradient(90deg, rgba(167, 139, 250, .15), rgba(244, 114, 182, .15));
+            border: 1px solid rgba(255, 255, 255, .12);
+            color: var(--text);
+            padding: 14px 20px;
+            border-radius: 14px;
+            font-weight: 600;
+            letter-spacing: .2px;
+            box-shadow: 0 8px 24px rgba(167, 139, 250, .14);
+            transition: transform .15s ease, box-shadow .2s ease, background .2s ease;
+            font-size: 16px;
+            min-width: 180px;
+            min-height: 50px;
+        }
+        .mem-foot .btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 12px 34px rgba(244, 114, 182, .18);
+        }
+        footer {
+            text-align: center;
+            padding: 8px 0 18px;
+            color: var(--muted);
+            font-size: 13px;
+        }
+        /* Адаптив для дуже вузьких екранів */
+        @media (max-width: 500px) {
+            :root {
+                --glow: 0 0 12px rgba(167, 139, 250, 0.4), 0 0 24px rgba(244, 114, 182, 0.2);
+            }
+            body {
+                gap: 12px;
+                min-height: 100vh;
+                display: grid;
+                grid-template-rows: auto auto 1fr auto;
+            }
+            h1 {
+                font-size: clamp(24px, 6vw, 32px);
+            }
+            .subtitle {
+                font-size: clamp(12px, 3vw, 16px);
+            }
+            .timer-wrap {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 8px;
+            }
+            .counter-card {
+                padding: 8px 10px;
+                border-radius: 16px;
+            }
+            .counter-value {
+                font-size: clamp(20px, 6vw, 28px);
+            }
+            .row {
+                flex-direction: column;
+                align-items: center;
+            }
+            .btn {
+                width: 100%;
+                min-width: unset;
+                padding: 16px;
+                font-size: 18px;
+            }
+            .tree-stage {
+                flex-grow: 1;
+                aspect-ratio: unset;
+                height: 100%;
+                min-height: 50vh;
+                margin: 6px auto;
+                width: 96vw;
+                max-width: none;
+            }
+            .branch-hotspot {
+                stroke-width: 36px !important;
+            }
+            .memory-panel {
+                width: 100%;
+                max-width: none;
+            }
+            .mem-foot {
+                flex-direction: column;
+                gap: 6px;
+            }
+            .mem-foot .btn {
+                width: 100%;
+            }
+            .branch {
+                stroke-width: 10 !important;
+            }
+            .branch-hotspot {
+                stroke-width: 40px !important;
+            }
+        }
+        /* Адаптив для планшетів */
+        @media (min-width: 501px) and (max-width: 900px) {
+            .timer-wrap {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            .tree-stage {
+                aspect-ratio: 16/9;
+            }
+        }
+        /* Адаптив для десктопів */
+        @media (min-width: 1200px) {
+            :root {
+                --glow: 0 0 28px rgba(167, 139, 250, 0.7), 0 0 56px rgba(244, 114, 182, 0.3);
+            }
+            .tree-stage {
+                max-width: 1200px;
+            }
+            .counter-value {
+                font-size: clamp(32px, 3.5vw, 56px);
+            }
+        }

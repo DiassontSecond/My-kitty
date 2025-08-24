@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Дерево кохання 💘</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Дерево кохання 💘</h1>
+        <div class="subtitle">Клікай гілочки — відкриватимуться спогади ✨</div>
+    </header>
+
+    <section class="timer-wrap" aria-label="Лічильник наших стосунків">
+        <div class="counter-card"><div class="counter-value" id="years">0</div><div class="counter-label">років</div></div>
+        <div class="counter-card"><div class="counter-value" id="months">0</div><div class="counter-label">місяців</div></div>
+        <div class="counter-card"><div class="counter-value" id="days">0</div><div class="counter-label">днів</div></div>
+        <div class="counter-card"><div class="counter-value" id="hours">0</div><div class="counter-label">годин</div></div>
+        <div class="counter-card"><div class="counter-value" id="minutes">0</div><div class="counter-label">хвилин</div></div>
+        <div class="counter-card"><div class="counter-value" id="seconds">0</div><div class="counter-label">секунд</div></div>
+    </section>
+
+    <main class="tree-stage" aria-label="Дерево спогадів">
+        <svg viewBox="0 0 1200 750" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Стилізоване дерево">
+            <path class="branch" d="M600,740 C600,620 580,520 600,420 C620,320 610,250 610,190" fill="none" />
+            
+            <g id="branch-left" data-branch="left">
+                <path class="branch" d="M610,270 C520,240 440,220 390,200" fill="none" />
+                <circle class="flower" cx="520" cy="245" r="10" fill="#f472b6" />
+                <circle class="flower" cx="470" cy="230" r="8" fill="#a78bfa" />
+                <circle class="flower" cx="420" cy="215" r="10" fill="#f472b6" />
+                <circle class="flower" cx="390" cy="205" r="9" fill="#a78bfa" />
+                <path class="branch-hotspot" d="M610,270 C520,240 440,220 390,200" stroke-width="24" stroke="transparent" fill="none" />
+            </g>
+
+            <g id="branch-right" data-branch="right">
+                <path class="branch" d="M610,240 C700,200 790,210 860,190" fill="none" />
+                <circle class="flower" cx="705" cy="205" r="10" fill="#f472b6" />
+                <circle class="flower" cx="760" cy="210" r="8" fill="#a78bfa" />
+                <circle class="flower" cx="820" cy="200" r="9" fill="#f472b6" />
+                <circle class="flower" cx="865" cy="188" r="10" fill="#a78bfa" />
+                <path class="branch-hotspot" d="M610,240 C700,200 790,210 860,190" stroke-width="24" stroke="transparent" fill="none" />
+            </g>
+
+            <g id="branch-top" data-branch="top">
+                <path class="branch" d="M610,200 C600,160 640,130 680,110" fill="none" />
+                <circle class="flower" cx="615" cy="182" r="8" fill="#a78bfa" />
+                <circle class="flower" cx="640" cy="160" r="10" fill="#f472b6" />
+                <circle class="flower" cx="665" cy="135" r="9" fill="#a78bfa" />
+                <circle class="flower" cx="685" cy="110" r="10" fill="#f472b6" />
+                <path class="branch-hotspot" d="M610,200 C600,160 640,130 680,110" stroke-width="24" stroke="transparent" fill="none" />
+            </g>
+
+            <g id="branch-bottom-left" data-branch="bottom-left">
+                <path class="branch" d="M590,300 C500,350 450,400 420,450" fill="none" />
+                <circle class="flower" cx="500" cy="350" r="10" fill="#f472b6" />
+                <circle class="flower" cx="460" cy="380" r="8" fill="#a78bfa" />
+                <circle class="flower" cx="430" cy="420" r="9" fill="#f472b6" />
+                <path class="branch-hotspot" d="M590,300 C500,350 450,400 420,450" stroke-width="24" stroke="transparent" fill="none" />
+            </g>
+
+            <g id="branch-bottom-right" data-branch="bottom-right">
+                <path class="branch" d="M610,320 C700,380 750,430 780,480" fill="none" />
+                <circle class="flower" cx="700" cy="380" r="10" fill="#a78bfa" />
+                <circle class="flower" cx="740" cy="420" r="8" fill="#f472b6" />
+                <circle class="flower" cx="770" cy="450" r="9" fill="#a78bfa" />
+                <path class="branch-hotspot" d="M610,320 C700,380 750,430 780,480" stroke-width="24" stroke="transparent" fill="none" />
+            </g>
+
+            <g id="branch-middle" data-branch="middle">
+                <path class="branch" d="M610,360 C580,400 520,450 480,490" fill="none" />
+                <circle class="flower" cx="580" cy="390" r="9" fill="#f472b6" />
+                <circle class="flower" cx="540" cy="440" r="10" fill="#a78bfa" />
+                <circle class="flower" cx="490" cy="480" r="8" fill="#f472b6" />
+                <path class="branch-hotspot" d="M610,360 C580,400 520,450 480,490" stroke-width="24" stroke="transparent" fill="none" />
+            </g>
+        </svg>
+
+        <div class="overlay" id="overlay" aria-hidden="true">
+            <aside class="memory-panel" role="dialog" aria-modal="true" aria-labelledby="memTitle">
+                <div class="mem-head">
+                    <div class="mem-title" id="memTitle">Спогад</div>
+                    <button class="close" id="closeMem" aria-label="Закрити">✕</button>
+                </div>
+                <div class="mem-body">
+                    <div class="photo" id="memPhoto"></div>
+                    <div class="mem-text" id="memText"></div>
+                </div>
+                <div class="mem-foot">
+                    <button class="btn" id="prevMem">◀ Попередній</button>
+                    <button class="btn" id="nextMem">Наступний ▶</button>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <footer>
+        Кицюня, я тебе безмежно кохаю ❤️ 
+    </footer>
+
+    <script src="script.js"></script>
+
+     <!-- 🎶 АУДІО -->
+    <audio id="bgMusic" loop>
+        <source src="Моя любовь.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        // Запуск музыки при первом клике
+        const music = document.getElementById("bgMusic");
+        let musicStarted = false;
+
+        function startMusic() {
+            if (!musicStarted) {
+                music.play().catch(() => {}); // на случай блокировки браузером
+                musicStarted = true;
+            }
+        }
+
+        document.addEventListener("click", startMusic);
+        document.addEventListener("touchstart", startMusic); // для мобільних
+    </script>
+</body>
+</html>
